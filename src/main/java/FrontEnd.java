@@ -36,7 +36,7 @@ public class FrontEnd extends HttpServlet implements Runnable, Abonent{
 //        fis.close();
 //
 //        writer.close();
-        resp.setStatus(HttpServletResponse.SC_OK);
+
         String sessionId = req.getSession().getId();
         UserSession userSession = sessionIdToUserS.get(sessionId);
         if (userSession == null){
@@ -44,7 +44,12 @@ public class FrontEnd extends HttpServlet implements Runnable, Abonent{
         }
         if (userSession.getUserId()!=null){
             System.out.println("UserID: " + userSession.getUserId());
+            Map<String, Object> root = new HashMap<>();
+            root.put("userId", userSession.getUserId());
+            resp.getWriter().println(PageGenerator.getPage("auth.html", root));
         }
+
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
