@@ -23,36 +23,45 @@ public class FrontEnd extends HttpServlet implements Runnable, Abonent{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doGet(req, resp);
-        FileReader fis = new FileReader("index.html");
-        BufferedReader reader = new BufferedReader(fis);
-
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-        while (reader.ready()){
-            writer.print(reader.readLine());
-        }
-
-        reader.close();
-        fis.close();
-
-        writer.close();
+//        FileReader fis = new FileReader("index.html");
+//        BufferedReader reader = new BufferedReader(fis);
+//
+//        resp.setContentType("text/html");
+//        PrintWriter writer = resp.getWriter();
+//        while (reader.ready()){
+//            writer.print(reader.readLine());
+//        }
+//
+//        reader.close();
+//        fis.close();
+//
+//        writer.close();
         resp.setStatus(HttpServletResponse.SC_OK);
+        String sessionId = req.getSession().getId();
+        UserSession userSession = sessionIdToUserS.get(sessionId);
+        if (userSession == null){
+            return;
+        }
+        if (userSession.getUserId()!=null){
+            System.out.println("UserID: " + userSession.getUserId());
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getPathInfo().equals("/userid")){
+        //if (req.getPathInfo().equals("/auth")){
+        System.out.println(req.getPathInfo());
             String sessionId = req.getSession().getId();
             String name = req.getParameter("login");
             UserSession userSession = new UserSession(name, sessionId, ms.getAddressService());
             sessionIdToUserS.put(sessionId, userSession);
             ms.sendMessage(new MsgToAS(address, userSession.getAccountService(), name, sessionId));
 
-            resp.setContentType("text/html;charset=utf-8");
+            resp.setContentType("text/html;charset=UTF-8");
             resp.setStatus(HttpServletResponse.SC_OK);
 
             //responseUserPage(response, "authorization started");
-        }
+        //}
     }
 
     public void run() {
