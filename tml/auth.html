@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Авторизация</title>
+    <title>Кликер онлайн</title>
+    <link rel="stylesheet" href="css/style.css">
     <script>
         function refresh() {
             location.reload();
@@ -8,9 +9,13 @@
     </script>
 </head>
 <body onload='setInterval(function(){refresh()}, 1000 );'>
-    <b>User id: ${userId}</b>
-    <p><a href="index.html">Home</a> <a href="index.html">Выход</a></p>
-    <button id="ref_butn">Refresh the page now!</button>&nbsp;
-    <button id="ref_in_five"> Wait 5 seconds, then refresh!</button>
+    <section class="container">
+        <div class="login">
+            <center>
+                <h1>Привет, ${name}</h1>
+                <h1>Ваш ID: ${userId}</h1>
+            </center>
+        </div>
+    </section>
 </body>
 </html>
