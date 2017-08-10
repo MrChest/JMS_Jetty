@@ -1,12 +1,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml" content="text/html;">
 <head>
-    <meta charset="UTF-8">
     <title>Индекс</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<form action="/auth" method="POST">
-    Логин: <input type="text" name="login"/>
-    <input type="submit" value="Отправить">
-</form>
-<br/>
+    <section class="container">
+        <div class="login">
+            <h1>Войти в личный кабинет</h1>
+            <form action="/auth" method="post">
+                <p><input type="text" name="login" value="" placeholder="Логин или Email"></p>
+                <p><input type="password" name="password" value="" placeholder="Пароль"></p>
+                <p class="remember_me">
+                    <label>
+                        <input type="checkbox" name="remember_me" id="remember_me">
+                        Запомнить меня
+                    </label>
+                </p>
+                <p class="submit"><input type="submit" name="commit" value="Войти"></p>
+            </form>
+        </div>
+
+        <div class="login-help">
+            <a href="index.html">Забыли пароль?</a> Восстановите его!
+        </div>
+    </section>
+    <!--<center>-->
+        <!--<br>-->
+        <!--<br><h2>Loggin Page</h2>-->
+        <!--<br>-->
+        <!--<br>Введите имя и пароль-->
+        <!--<br>-->
+        <!--<br>-->
+        <!--<form action="/auth" method="post">-->
+            <!--<table>-->
+                <!--<tr>-->
+                    <!--<td>Имя пользователя:</td>-->
+                    <!--<td><input type="text" name="login"></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>Пароль:</td>-->
+                    <!--<td><input type="password" name="password"></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td align="right" colspan="2"><input type="submit" value="Отправить"></td>-->
+                <!--</tr>-->
+            <!--</table>-->
+
+        <!--</form>-->
+    <!--</center>-->
 </body>
