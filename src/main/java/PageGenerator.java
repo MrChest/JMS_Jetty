@@ -2,6 +2,7 @@ import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import sun.util.resources.cldr.ka.LocaleNames_ka;
 
 import java.io.*;
 import java.util.Map;

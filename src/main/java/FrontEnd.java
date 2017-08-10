@@ -22,50 +22,37 @@ public class FrontEnd extends HttpServlet implements Runnable, Abonent{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doGet(req, resp);
-//        FileReader fis = new FileReader("index.html");
-//        BufferedReader reader = new BufferedReader(fis);
-//
-//        resp.setContentType("text/html");
-//        PrintWriter writer = resp.getWriter();
-//        while (reader.ready()){
-//            writer.print(reader.readLine());
-//        }
-//
-//        reader.close();
-//        fis.close();
-//
-//        writer.close();
-
+        resp.setContentType("text/html;charset=utf-8");
         String sessionId = req.getSession().getId();
         UserSession userSession = sessionIdToUserS.get(sessionId);
+        Map<String, Object> root = new HashMap<>();
         if (userSession == null){
             return;
         }
-        if (userSession.getUserId()!=null){
-            Map<String, Object> root = new HashMap<>();
-            root.put("userId", userSession.getUserId());
+        if (userSession.getUserId()==null) {
+            root.put("userId", "Ждите авторизации");
             resp.getWriter().println(PageGenerator.getInstance().getPage("auth.html", root));
+            resp.setStatus(HttpServletResponse.SC_OK);
+            return;
         }
-
+        root.put("userId", userSession.getUserId());
+        resp.getWriter().println(PageGenerator.getInstance().getPage("auth.html", root));
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //if (req.getPathInfo().equals("/auth")){
-        System.out.println(req.getPathInfo());
+        if (req.getRequestURI().equals("/auth")) {
             String sessionId = req.getSession().getId();
             String name = req.getParameter("login");
             UserSession userSession = new UserSession(name, sessionId, ms.getAddressService());
-            sessionIdToUserS.put(sessionId, userSession);
-            ms.sendMessage(new MsgToAS(address, userSession.getAccountService(), name, sessionId));
+            if (!sessionIdToUserS.containsKey(sessionId)){
+                sessionIdToUserS.put(sessionId, userSession);
+                ms.sendMessage(new MsgToAS(address, userSession.getAccountService(), name, sessionId));
+            }
 
-            resp.setContentType("text/html;charset=UTF-8");
-            resp.setStatus(HttpServletResponse.SC_OK);
-
-            //responseUserPage(response, "authorization started");
-        //}
+            doGet(req, resp);
+        }
     }
 
     public void run() {
