@@ -43,10 +43,9 @@ public class FrontEnd extends HttpServlet implements Runnable, Abonent{
             return;
         }
         if (userSession.getUserId()!=null){
-            System.out.println("UserID: " + userSession.getUserId());
             Map<String, Object> root = new HashMap<>();
             root.put("userId", userSession.getUserId());
-            resp.getWriter().println(PageGenerator.getPage("auth.html", root));
+            resp.getWriter().println(PageGenerator.getInstance().getPage("auth.html", root));
         }
 
         resp.setStatus(HttpServletResponse.SC_OK);

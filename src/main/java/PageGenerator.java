@@ -20,7 +20,7 @@ public class PageGenerator {
     private PageGenerator() {
     }
 
-    public static String getPage(String fileName, Map<String, Object> root){
+    public String getPage(String fileName, Map<String, Object> root){
         Writer writer = new StringWriter();
         CFG.setDefaultEncoding("UTF-8");
 
