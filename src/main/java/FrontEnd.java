@@ -31,11 +31,13 @@ public class FrontEnd extends HttpServlet implements Runnable, Abonent{
         }
         if (userSession.getUserId()==null) {
             root.put("userId", "Ждите авторизации");
+            root.put("name", "<Oo>");
             resp.getWriter().println(PageGenerator.getInstance().getPage("auth.html", root));
             resp.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         root.put("userId", userSession.getUserId());
+        root.put("name", userSession.getName());
         resp.getWriter().println(PageGenerator.getInstance().getPage("auth.html", root));
         resp.setStatus(HttpServletResponse.SC_OK);
     }
