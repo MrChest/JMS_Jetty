@@ -3,6 +3,7 @@
  */
 public class AddressService {
     private Address accountService;
+    private Address gameMechhanics;
 
     public Address getAccountService() {
         return accountService;
@@ -10,5 +11,13 @@ public class AddressService {
 
     public void setAccountService(Address accountService) {
         this.accountService = accountService;
+    }
+
+    public Address getGameMechhanics() {
+        return gameMechhanics;
+    }
+
+    public void setGameMechhanics(Address gameMechhanics) {
+        this.gameMechhanics = gameMechhanics;
     }
 }
